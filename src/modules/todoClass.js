@@ -11,22 +11,6 @@ export default class Todo {
         this.isDone = !this.isDone;
     }
 
-    setTitle(title) {
-        this.title = title;
-    }
-
-    setDescription(description) {
-        this.description = description;
-    }
-
-    setDueDate(dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    setPriority(priority) {
-        this.priority = priority;
-    }
-
     log() {
         console.log(this);
     }
