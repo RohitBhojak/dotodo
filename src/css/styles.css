@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap");
+
+:root[data-theme="light"] {
+  --text: hsl(263, 31%, 5%);
+  --background: hsl(255, 40%, 98%);
+  --primary: hsl(259, 38%, 25%);
+  --secondary: hsl(259, 43%, 66%);
+  --accent: hsl(259, 47%, 45%);
+}
+
+:root[data-theme="dark"] {
+  --text: hsl(262, 31%, 95%);
+  --background: hsl(255, 40%, 2%);
+  --primary: hsl(259, 38%, 75%);
+  --secondary: hsl(259, 43%, 34%);
+  --accent: hsl(259, 47%, 55%);
+}
+
+:root {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Hi Melody";
+  font-weight: 400;
+}
