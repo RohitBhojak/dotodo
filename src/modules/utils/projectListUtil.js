@@ -17,14 +17,9 @@ const projectListUtil = (function () {
     ls.remove(project.title);
   }
 
-  function updateProject(project) {
-    ls.store(project.title, JSON.stringify(project));
-  }
-
   return {
     addProject,
     removeProject,
-    updateProject,
   };
 })();
 

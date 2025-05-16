@@ -27,40 +27,62 @@
     <!-- new todo modal -->
     <dialog id="newTodo">
       <form>
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title" />
-        <label for="description">Description</label>
-        <textarea
-          name="description"
-          id="description"
-          cols="30"
-          rows="10"
-        ></textarea>
-        <label for="dueDate">Due Date</label>
-        <input type="date" name="dueDate" id="dueDate" />
-        <label for="priority">Priority</label>
-        <select name="priority" id="priority">
-          <option value="low">Low</option>
-          <option value="medium" selected>Medium</option>
-          <option value="high">High</option>
-        </select>
-        <button type="submit">Create</button>
+        <div>
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title" />
+        </div>
+        <div>
+          <label for="description">Description</label>
+          <textarea
+            name="description"
+            id="description"
+            cols="30"
+            rows="10"
+          ></textarea>
+        </div>
+        <div>
+          <label for="dueDate">Due Date</label>
+          <input type="date" name="dueDate" id="dueDate" />
+        </div>
+        <div>
+          <label for="priority">Priority</label>
+          <select name="priority" id="priority">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        <div>
+          <input type="checkbox" name="isDone" id="isDone" />
+          <label for="isDone">Done</label>
+        </div>
+        <div>
+          <button type="submit">Create</button>
+          <button type="button">Cancel</button>
+        </div>
       </form>
     </dialog>
 
     <!-- new project modal -->
     <dialog id="newProject">
       <form>
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title" />
-        <label for="description">Description</label>
-        <textarea
-          name="description"
-          id="description"
-          cols="30"
-          rows="10"
-        ></textarea>
-        <button type="submit">Create</button>
+        <div>
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title" />
+        </div>
+        <div>
+          <label for="description">Description</label>
+          <textarea
+            name="description"
+            id="description"
+            cols="30"
+            rows="10"
+          ></textarea>
+        </div>
+        <div>
+          <button type="submit">Create</button>
+          <button type="button">Cancel</button>
+        </div>
       </form>
     </dialog>
 
@@ -68,8 +90,10 @@
     <dialog id="confirmDelete">
       <form>
         <p>Delete this todo?</p>
-        <button type="submit">Yes</button>
-        <button type="button">No</button>
+        <div>
+          <button type="submit">Yes</button>
+          <button type="button">No</button>
+        </div>
       </form>
     </dialog>
   </body>
