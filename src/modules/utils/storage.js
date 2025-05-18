@@ -40,11 +40,21 @@ const ls = (function () {
     return Object.keys(localStorage);
   }
 
+  function getProjectList() {
+    const pids = getPids();
+    const projectList = [];
+    for (const pid of pids) {
+      projectList.push(retrieveProject(pid).title);
+    }
+    return projectList;
+  }
+
   return {
     storeProject,
     retrieveProject,
     removeProject,
     getPids,
+    getProjectList,
     isAvailable,
   };
 })();
