@@ -19,70 +19,33 @@ const ls = (function () {
     }
   }
 
-  const available = storageAvailable("localStorage");
+  const isAvailable = storageAvailable("localStorage");
 
   // store
-  function store(key, value) {
-    if (available) {
-      localStorage.setItem(key, value);
-      return true;
-    } else {
-      console.log("local storage not available");
-      return false;
-    }
+  function storeProject(pid, project) {
+    localStorage.setItem(pid, JSON.stringify(project));
   }
 
   // retrieve
-  function retrieve(key) {
-    if (available) {
-      return JSON.parse(localStorage.getItem(key));
-    } else {
-      console.log("local storage not available");
-      return false;
-    }
+  function retrieveProject(pid) {
+    return JSON.parse(localStorage.getItem(pid));
   }
 
   // remove
-  function remove(key) {
-    if (available) {
-      localStorage.removeItem(key);
-      return true;
-    } else {
-      console.log("local storage not available");
-      return false;
-    }
+  function removeProject(pid) {
+    localStorage.removeItem(pid);
   }
 
-  function getKeys() {
-    if (available) {
-      const keys = Object.keys(localStorage);
-      return keys;
-    } else {
-      console.log("local storage not available");
-      return false;
-    }
-  }
-
-  function retrieveAll() {
-    const projects = [];
-    if (available) {
-      const keys = getKeys();
-      keys.forEach((key) => {
-        const project = retrieve(key);
-        projects.push(project);
-      });
-    } else {
-      console.log("local storage not available");
-    }
-    return projects;
+  function getPids() {
+    return Object.getKeys(localStorage);
   }
 
   return {
-    store,
-    retrieve,
-    retrieveAll,
-    remove,
-    getKeys,
+    storeProject,
+    retrieveProject,
+    removeProject,
+    getPids,
+    isAvailable,
   };
 })();
 
