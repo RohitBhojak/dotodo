@@ -5,6 +5,7 @@ const projectUtil = (function () {
   function createProject(title) {
     const project = new Project(title);
     ls.storeProject(project);
+    return project;
   }
 
   function addTodo(todo) {

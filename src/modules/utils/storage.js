@@ -37,7 +37,7 @@ const ls = (function () {
   }
 
   function getPids() {
-    return Object.getKeys(localStorage);
+    return Object.keys(localStorage);
   }
 
   return {

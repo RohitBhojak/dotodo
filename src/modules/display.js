@@ -1,13 +1,17 @@
-import Todo from "./todoClass.js";
-import Project from "./projectClass.js";
+import todoUtil from "./utils/todoUtil.js";
+import projectUtil from "./utils/projectUtil.js";
+import ls from "./utils/storage.js";
 
 export default function display() {
-  const todo1 = new Todo("title", "description", "dueDate", "priority", true);
-  const todo2 = new Todo("title", "description", "dueDate", "priority");
-
-  const project1 = new Project("title", "description");
-  project1.addTodo(todo1);
-  project1.addTodo(todo2);
-
-  console.log(JSON.stringify(todo1));
+  const pids = ls.getPids();
+  for (let pid of pids) {
+    ls.removeProject(pid);
+  }
+  const project = projectUtil.createProject("test");
+  const todo1 = todoUtil.createTodo(project.pid, "a", "b", "c", "d", false);
+  const todo2 = todoUtil.createTodo(project.pid, "e", "f", "g", "h", false);
+  projectUtil.addTodo(todo1);
+  projectUtil.addTodo(todo2);
+  console.log(JSON.stringify(ls.retrieveProject(project.pid)));
+  console.log(ls.getPids());
 }
