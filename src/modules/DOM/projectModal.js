@@ -1,6 +1,6 @@
 import projectUtil from "../utils/projectUtil";
 
-const projectModal = (function () {
+export default function projectModal() {
   const dialog = document.querySelector("#newProject");
   dialog.showModal();
   dialog.addEventListener("submit", () => {
@@ -8,6 +8,4 @@ const projectModal = (function () {
     projectUtil.createProject(title);
     dialog.close();
   });
-})();
-
-export default projectModal;
+}

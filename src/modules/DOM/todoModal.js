@@ -1,7 +1,7 @@
 import todoUtil from "../utils/todoUtil";
 import projectUtil from "../utils/projectUtil";
 
-const todoModal = (function () {
+export default function todoModal() {
   const dialog = document.querySelector("#newTodo");
   dialog.showModal();
   dialog.addEventListener("submit", () => {
@@ -10,11 +10,18 @@ const todoModal = (function () {
     const dueDate = document.querySelector("#dueDate").value;
     const priority = document.querySelector("#priority").value;
     const isDone = document.querySelector("#isDone").checked;
+    const activeProject = document.querySelector(".project.active");
+    const pid = activeProject ? activeProject.dataset.pid : 0;
 
-    todoUtil.createTodo(title, description, dueDate, priority, isDone);
-    projectUtil.addTodo(todoUtil.currentTodo);
+    const todo = todoUtil.createTodo(
+      pid,
+      title,
+      description,
+      dueDate,
+      priority,
+      isDone,
+    );
+    projectUtil.addTodo(todo);
     dialog.close();
   });
-})();
-
-export default todoModal;
+}
