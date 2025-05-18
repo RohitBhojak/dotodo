@@ -6,6 +6,7 @@ const projectUtil = (function () {
     const project = new Project(title);
     ls.storeProject(project);
   }
+
   function addTodo(todo) {
     const project = ls.retrieveProject(todo.pid);
     project.list.push(todo);
