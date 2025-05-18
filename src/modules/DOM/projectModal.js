@@ -5,8 +5,7 @@ const projectModal = (function () {
   dialog.showModal();
   dialog.addEventListener("submit", () => {
     const title = document.querySelector("#title").value;
-    const description = document.querySelector("#description").value;
-    projectUtil.createProject(title, description);
+    projectUtil.createProject(title);
     dialog.close();
   });
 })();
