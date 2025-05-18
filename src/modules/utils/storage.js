@@ -22,8 +22,8 @@ const ls = (function () {
   const isAvailable = storageAvailable("localStorage");
 
   // store
-  function storeProject(pid, project) {
-    localStorage.setItem(pid, JSON.stringify(project));
+  function storeProject(project) {
+    localStorage.setItem(project.pid, JSON.stringify(project));
   }
 
   // retrieve

@@ -1,18 +1,22 @@
 import Project from "../classes/projectClass.js";
-import projectListUtil from "./projectListUtil.js";
+import ls from "./storage.js";
 
 const projectUtil = (function () {
-  const currentProject = document.querySelector(".project.active");
-  function createProject(title, description) {
-    const project = new Project(title, description);
-    projectListUtil.addProject(project);
+  function createProject(title) {
+    const project = new Project(title);
+    ls.storeProject(project);
   }
   function addTodo(todo) {
-    currentProject.list.push(todo);
+    const project = ls.retrieveProject(todo.pid);
+    project.list.push(todo);
+    ls.storeProject(project);
   }
 
   function removeTodo(todo) {
-    currentProject.list.splice(currentProject.list.indexOf(todo), 1);
+    const project = ls.retrieveProject(todo.pid);
+    const index = project.list.indexOf(todo);
+    project.list.splice(index, 1);
+    ls.storeProject(project);
   }
 
   return {
