@@ -19,9 +19,11 @@ const ls = (function () {
     }
   }
 
+  const available = storageAvailable("localStorage");
+
   // store
   function store(key, value) {
-    if (storageAvailable("localStorage")) {
+    if (available) {
       localStorage.setItem(key, value);
       return true;
     } else {
@@ -32,7 +34,7 @@ const ls = (function () {
 
   // retrieve
   function retrieve(key) {
-    if (storageAvailable("localStorage")) {
+    if (available) {
       return JSON.parse(localStorage.getItem(key));
     } else {
       console.log("local storage not available");
@@ -42,7 +44,7 @@ const ls = (function () {
 
   // remove
   function remove(key) {
-    if (storageAvailable("localStorage")) {
+    if (available) {
       localStorage.removeItem(key);
       return true;
     } else {
@@ -52,7 +54,7 @@ const ls = (function () {
   }
 
   function getKeys() {
-    if (storageAvailable("localStorage")) {
+    if (available) {
       const keys = Object.keys(localStorage);
       return keys;
     } else {
@@ -63,7 +65,7 @@ const ls = (function () {
 
   function retrieveAll() {
     const projects = [];
-    if (storageAvailable("localStorage")) {
+    if (available) {
       const keys = getKeys();
       keys.forEach((key) => {
         const project = retrieve(key);
