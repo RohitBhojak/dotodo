@@ -5,12 +5,26 @@ function createTodoNode(todo) {
   const node = document.createElement("li");
   node.dataset.pid = todo.pid;
   node.dataset.id = todo.id;
-  node.innerHTML = `
-        <button class="toggleDone">Done</button>
-        <p>${todo.title}</p>
-        <p>${format(new Date(todo.dueDate), "dd/MM/yyyy")}</p>
-        <button class="deleteTodo">Delete</button>
-    `;
+  node.classList.add("todo");
+
+  const toggle = document.createElement("button");
+  toggle.classList.add("toggle");
+  node.appendChild(toggle);
+
+  const title = document.createElement("span");
+  title.classList.add("title");
+  title.textContent = todo.title;
+  node.appendChild(title);
+
+  const dueDate = document.createElement("span");
+  dueDate.classList.add("dueDate");
+  dueDate.textContent = format(new Date(todo.dueDate), "dd/MM/yyyy");
+  node.appendChild(dueDate);
+
+  const deleteTodo = document.createElement("button");
+  deleteTodo.classList.add("deleteTodo");
+  node.appendChild(deleteTodo);
+
   return node;
 }
 
