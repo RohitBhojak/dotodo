@@ -22,6 +22,11 @@ export default function todoModal() {
       isDone,
     );
     projectUtil.addTodo(todo);
+    dialog.reset();
+    dialog.close();
+  });
+
+  dialog.querySelector(".cancel").addEventListener("click", () => {
     dialog.close();
   });
 }
