@@ -38,11 +38,8 @@ const ls = (function () {
   }
 
   function getProjectList() {
-    const pids = getPids();
     const projectList = [];
-    for (const pid of pids) {
-      projectList.push(retrieveProject(pid).title);
-    }
+    getPids().map((pid) => projectList.push(retrieveProject(pid)));
     return projectList;
   }
 

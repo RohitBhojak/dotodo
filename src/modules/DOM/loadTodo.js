@@ -19,45 +19,39 @@ export default function loadTodo(check) {
   todoList.innerHTML = "";
   switch (check) {
     case "tasks":
-      for (const pid of ls.getPids()) {
-        const project = ls.retrieveProject(pid);
-        project.list
-          .map(createTodoNode)
-          .forEach((node) => todoList.appendChild(node));
-      }
+      ls.getProjectList()
+        .flatMap((project) => project.list.map(createTodoNode))
+        .forEach((node) => todoList.appendChild(node));
       break;
+
     case "today":
-      for (const pid of ls.getPids()) {
-        const project = ls.retrieveProject(pid);
-        project.list
-          .filter((todo) => isToday(new Date(todo.dueDate)))
-          .map(createTodoNode)
-          .forEach((node) => todoList.appendChild(node));
-      }
+      ls.getProjectList()
+        .flatMap((project) => project.list)
+        .filter((todo) => isToday(new Date(todo.dueDate)))
+        .map(createTodoNode)
+        .forEach((node) => todoList.appendChild(node));
       break;
+
     case "overdue":
-      for (const pid of ls.getPids()) {
-        const project = ls.retrieveProject(pid);
-        project.list
-          .filter((todo) => isPast(new Date(todo.dueDate)))
-          .map(createTodoNode)
-          .forEach((node) => todoList.appendChild(node));
-      }
+      ls.getProjectList()
+        .flatMap((project) => project.list)
+        .filter((todo) => isPast(new Date(todo.dueDate)))
+        .map(createTodoNode)
+        .forEach((node) => todoList.appendChild(node));
       break;
+
     case "important":
-      for (const pid of ls.getPids()) {
-        const project = ls.retrieveProject(pid);
-        project.list
-          .filter((todo) => todo.priority === "high")
-          .map(createTodoNode)
-          .forEach((node) => todoList.appendChild(node));
-      }
+      ls.getProjectList()
+        .flatMap((project) => project.list)
+        .filter((todo) => todo.priority === "high")
+        .map(createTodoNode)
+        .forEach((node) => todoList.appendChild(node));
       break;
+
     // in default case, pid of the project will be sent
     default: {
-      const project = ls.retrieveProject(check);
-      project.list
-        .map(createTodoNode)
+      ls.retrieveProject(check)
+        .list.map(createTodoNode)
         .forEach((node) => todoList.appendChild(node));
     }
   }
