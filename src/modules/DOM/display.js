@@ -8,14 +8,42 @@ export default function display() {
     ls.removeProject(pid);
   }
   const p1 = projectUtil.createProject("p1");
-  const todo1 = todoUtil.createTodo(p1.pid, "a", "b", "c", "d", false);
-  const todo2 = todoUtil.createTodo(p1.pid, "e", "f", "g", "h", false);
+  const todo1 = todoUtil.createTodo(
+    p1.pid,
+    "a",
+    "b",
+    "2025-01-01",
+    "low",
+    false,
+  );
+  const todo2 = todoUtil.createTodo(
+    p1.pid,
+    "e",
+    "f",
+    "2025-01-01",
+    "medium",
+    false,
+  );
   projectUtil.addTodo(todo1);
   projectUtil.addTodo(todo2);
 
   const p2 = projectUtil.createProject("p2");
-  const todo4 = todoUtil.createTodo(p2.pid, "i", "j", "k", "l", false);
-  const todo3 = todoUtil.createTodo(p2.pid, "p", "o", "n", "m", true);
+  const todo4 = todoUtil.createTodo(
+    p2.pid,
+    "i",
+    "j",
+    "2025-08-08",
+    "high",
+    false,
+  );
+  const todo3 = todoUtil.createTodo(
+    p2.pid,
+    "p",
+    "o",
+    "2025-08-08",
+    "medium",
+    true,
+  );
   projectUtil.addTodo(todo3);
   projectUtil.addTodo(todo4);
 

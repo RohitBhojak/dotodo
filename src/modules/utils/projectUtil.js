@@ -14,9 +14,9 @@ const projectUtil = (function () {
     ls.storeProject(project);
   }
 
-  function removeTodo(todo) {
-    const project = ls.retrieveProject(todo.pid);
-    const index = project.list.indexOf(todo);
+  function removeTodo(pid, tid) {
+    const project = ls.retrieveProject(pid);
+    const index = project.list.findIndex((todo) => todo.id === tid);
     project.list.splice(index, 1);
     ls.storeProject(project);
   }

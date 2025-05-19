@@ -2,6 +2,7 @@ import loadTodo from "./loadTodo";
 import projectUtil from "../utils/projectUtil";
 import todoUtil from "../utils/todoUtil";
 import todoModal from "./todoModal";
+import ls from "../utils/storage";
 import projectModal from "./projectModal";
 
 export default function setupEvents() {
@@ -10,7 +11,7 @@ export default function setupEvents() {
     if (e.target.matches(".deleteProject")) {
       const project = e.target.closest(".project");
       const pid = project.dataset.pid;
-      projectUtil.removeProject(pid);
+      ls.removeProject(pid);
       project.remove();
     } else if (e.target.matches("button")) {
       left.querySelector(".active").classList.remove("active");
@@ -33,13 +34,13 @@ export default function setupEvents() {
     }
   });
 
-  const newTodo = document.querySelector(".newTodo");
-  newTodo.addEventListener("click", () => {
-    todoModal();
-  });
+  //   const newTodo = document.querySelector(".newTodo");
+  //   newTodo.addEventListener("click", () => {
+  //     todoModal();
+  //   });
 
-  const newProject = document.querySelector(".newProject");
-  newProject.addEventListener("click", () => {
-    projectModal();
-  });
+  //   const newProject = document.querySelector(".newProject");
+  //   newProject.addEventListener("click", () => {
+  //     projectModal();
+  //   });
 }
