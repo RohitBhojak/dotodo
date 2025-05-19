@@ -13,5 +13,6 @@ export default function display() {
   projectUtil.addTodo(todo1);
   projectUtil.addTodo(todo2);
   console.log(JSON.stringify(ls.retrieveProject(project.pid)));
+  console.log(ls.getProjectList());
   console.log(ls.getPids());
 }
