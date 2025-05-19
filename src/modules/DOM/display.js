@@ -1,6 +1,6 @@
-import todoUtil from "./utils/todoUtil.js";
-import projectUtil from "./utils/projectUtil.js";
-import ls from "./utils/storage.js";
+import todoUtil from "../utils/todoUtil.js";
+import projectUtil from "../utils/projectUtil.js";
+import ls from "../utils/storage.js";
 
 export default function display() {
   const pids = ls.getPids();

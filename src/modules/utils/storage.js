@@ -21,17 +21,14 @@ const ls = (function () {
 
   const isAvailable = storageAvailable("localStorage");
 
-  // store
   function storeProject(project) {
     localStorage.setItem(project.pid, JSON.stringify(project));
   }
 
-  // retrieve
   function retrieveProject(pid) {
     return JSON.parse(localStorage.getItem(pid));
   }
 
-  // remove
   function removeProject(pid) {
     localStorage.removeItem(pid);
   }
