@@ -9,6 +9,7 @@ function createTodoNode(todo) {
 
   const toggle = document.createElement("button");
   toggle.classList.add("toggle");
+  if (todo.isDone) todo.classList.add("done");
   node.appendChild(toggle);
 
   const title = document.createElement("span");
@@ -28,7 +29,7 @@ function createTodoNode(todo) {
   return node;
 }
 
-export default function loadTodo(check) {
+function loadTodoList(check) {
   const todoList = document.querySelector("#todo-list");
   todoList.innerHTML = "";
   switch (check) {
@@ -70,3 +71,10 @@ export default function loadTodo(check) {
     }
   }
 }
+
+function loadOneTodo(todo) {
+  const todoList = document.querySelector("#todo-list");
+  todoList.appendChild(createTodoNode(todo));
+}
+
+export { loadTodoList, loadOneTodo };

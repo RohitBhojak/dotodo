@@ -1,4 +1,5 @@
-import loadTodo from "./loadTodo";
+import { loadTodoList, loadOneTodo } from "./loadTodo";
+import { loadProjectList, loadOneProject } from "./loadProjectList";
 import projectUtil from "../utils/projectUtil";
 import todoUtil from "../utils/todoUtil";
 import todoModal from "./todoModal";
@@ -16,7 +17,7 @@ export default function setupEvents() {
     } else if (e.target.matches("button")) {
       left.querySelector(".active").classList.remove("active");
       e.target.classList.add("active");
-      loadTodo(e.target.id || e.target.dataset.pid);
+      loadTodoList(e.target.id || e.target.dataset.pid);
     }
   });
 
@@ -31,16 +32,19 @@ export default function setupEvents() {
     } else if (e.target.matches(".toggle")) {
       const todo = e.target.closest(".todo");
       todoUtil.toggleTodo(todo);
+      todo.classList.toggle("done");
     }
   });
 
   //   const newTodo = document.querySelector(".newTodo");
   //   newTodo.addEventListener("click", () => {
-  //     todoModal();
+  //     const todo = todoModal();
+  //     if (todo) loadOneTodo(todo);
   //   });
 
   //   const newProject = document.querySelector(".newProject");
   //   newProject.addEventListener("click", () => {
-  //     projectModal();
+  //     const project = projectModal();
+  //     if (project) loadOneProject(project);
   //   });
 }

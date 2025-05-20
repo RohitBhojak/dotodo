@@ -5,11 +5,13 @@ export default function projectModal() {
   dialog.showModal();
   dialog.addEventListener("submit", () => {
     const title = document.querySelector("#title").value;
-    projectUtil.createProject(title);
+    const project = projectUtil.createProject(title);
     dialog.reset();
     dialog.close();
+    return project;
   });
   dialog.querySelector(".cancel").addEventListener("click", () => {
     dialog.close();
+    return null;
   });
 }
