@@ -19,16 +19,15 @@ function createProjectNode(project) {
   return node;
 }
 
+const projects = document.querySelector(".projects");
 function loadProjectList() {
-  const projects = document.querySelector(".projects");
   projects.innerHTML = "";
   const projectList = ls.getProjectList();
-  projects.innerHTML = projectList.map(createProjectNode).join("");
+  projectList.forEach(loadProject);
 }
 
-function loadOneProject(project) {
-  const projects = document.querySelector(".projects");
+function loadProject(project) {
   projects.appendChild(createProjectNode(project));
 }
 
-export { loadProjectList, loadOneProject };
+export { loadProjectList, loadProject };
