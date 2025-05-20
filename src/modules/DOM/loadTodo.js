@@ -9,7 +9,7 @@ function createTodoNode(todo) {
 
   const toggle = document.createElement("button");
   toggle.classList.add("toggle");
-  if (todo.isDone) todo.classList.add("done");
+  if (todo.isDone) node.classList.add("done");
   node.appendChild(toggle);
 
   const title = document.createElement("span");

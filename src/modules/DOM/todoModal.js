@@ -4,7 +4,8 @@ import projectUtil from "../utils/projectUtil";
 export default function todoModal() {
   const dialog = document.querySelector("#newTodo");
   dialog.showModal();
-  dialog.addEventListener("submit", () => {
+  dialog.addEventListener("submit", (event) => {
+    event.preventDefault();
     const title = document.querySelector("#title").value;
     const description = document.querySelector("#description").value;
     const dueDate = document.querySelector("#dueDate").value;

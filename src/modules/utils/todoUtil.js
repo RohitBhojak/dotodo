@@ -1,4 +1,4 @@
-import Todo from "../classes/todoClass.js";
+import Todo from "../classes/todoClass";
 
 const todoUtil = (function () {
   function createTodo(pid, title, description, dueDate, priority, isDone) {

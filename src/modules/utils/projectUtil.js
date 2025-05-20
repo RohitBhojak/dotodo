@@ -1,5 +1,5 @@
-import Project from "../classes/projectClass.js";
-import ls from "./storage.js";
+import Project from "../classes/projectClass";
+import ls from "./storage";
 
 const projectUtil = (function () {
   function createProject(title) {
