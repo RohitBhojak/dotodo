@@ -62,9 +62,8 @@ function loadTodoList(check) {
       break;
 
     // in default case, pid of the project will be sent
-    default: {
+    default:
       ls.retrieveProject(check).list.forEach(loadTodo);
-    }
   }
 }
 

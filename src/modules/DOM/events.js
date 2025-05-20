@@ -17,7 +17,8 @@ export default function setupEvents() {
     } else if (e.target.matches("button")) {
       left.querySelector(".active").classList.remove("active");
       e.target.classList.add("active");
-      loadTodoList(e.target.id || e.target.dataset.pid);
+      loadTodoList(e.target.id || e.target.parentNode.dataset.pid);
+      console.log(e.target.id || e.target.parentNode.dataset.pid);
     }
   });
 
