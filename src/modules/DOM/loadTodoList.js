@@ -29,52 +29,47 @@ function createTodoNode(todo) {
   return node;
 }
 
+const todoList = document.querySelector("#todo-list");
+
 function loadTodoList(check) {
-  const todoList = document.querySelector("#todo-list");
   todoList.innerHTML = "";
   switch (check) {
     case "tasks":
       ls.getProjectList()
-        .flatMap((project) => project.list.map(createTodoNode))
-        .forEach((node) => todoList.appendChild(node));
+        .flatMap((project) => project.list)
+        .forEach(loadTodo);
       break;
 
     case "today":
       ls.getProjectList()
         .flatMap((project) => project.list)
         .filter((todo) => isToday(new Date(todo.dueDate)))
-        .map(createTodoNode)
-        .forEach((node) => todoList.appendChild(node));
+        .forEach(loadTodo);
       break;
 
     case "overdue":
       ls.getProjectList()
         .flatMap((project) => project.list)
         .filter((todo) => isPast(new Date(todo.dueDate)))
-        .map(createTodoNode)
-        .forEach((node) => todoList.appendChild(node));
+        .forEach(loadTodo);
       break;
 
     case "important":
       ls.getProjectList()
         .flatMap((project) => project.list)
         .filter((todo) => todo.priority === "high")
-        .map(createTodoNode)
-        .forEach((node) => todoList.appendChild(node));
+        .forEach(loadTodo);
       break;
 
     // in default case, pid of the project will be sent
     default: {
-      ls.retrieveProject(check)
-        .list.map(createTodoNode)
-        .forEach((node) => todoList.appendChild(node));
+      ls.retrieveProject(check).list.map(createTodoNode).forEach(loadTodo);
     }
   }
 }
 
-function loadOneTodo(todo) {
-  const todoList = document.querySelector("#todo-list");
+function loadTodo(todo) {
   todoList.appendChild(createTodoNode(todo));
 }
 
-export { loadTodoList, loadOneTodo };
+export { loadTodoList, loadTodo };

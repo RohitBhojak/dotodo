@@ -8,6 +8,13 @@ const projectUtil = (function () {
     return project;
   }
 
+  function createDefaultProject() {
+    const project = new Project("Default");
+    project.pid = 0;
+    ls.storeProject(project);
+    return project;
+  }
+
   function addTodo(todo) {
     const project = ls.retrieveProject(todo.pid);
     project.list.push(todo);
@@ -23,6 +30,7 @@ const projectUtil = (function () {
 
   return {
     createProject,
+    createDefaultProject,
     addTodo,
     removeTodo,
   };

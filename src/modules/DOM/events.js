@@ -1,5 +1,5 @@
-import { loadTodoList, loadOneTodo } from "./loadTodo";
-import { loadProjectList, loadOneProject } from "./loadProjectList";
+import { loadTodoList, loadTodo } from "./loadTodoList";
+import { loadProjectList, loadProject } from "./loadProjectList";
 import projectUtil from "../utils/projectUtil";
 import todoUtil from "../utils/todoUtil";
 import todoModal from "./todoModal";
