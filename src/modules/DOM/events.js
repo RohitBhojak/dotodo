@@ -1,7 +1,6 @@
 import { loadTodoList, loadTodo } from "./loadTodoList";
 import { loadProjectList, loadProject } from "./loadProjectList";
 import projectUtil from "../utils/projectUtil";
-import todoUtil from "../utils/todoUtil";
 import todoModal from "./todoModal";
 import ls from "../utils/storage";
 import projectModal from "./projectModal";
@@ -32,7 +31,7 @@ export default function setupEvents() {
       todo.remove();
     } else if (e.target.matches(".toggle")) {
       const todo = e.target.closest(".todo");
-      todoUtil.toggleTodo(todo);
+      todo.isDone = !todo.isDone;
       todo.classList.toggle("done");
     }
   });
@@ -40,12 +39,12 @@ export default function setupEvents() {
   //   const newTodo = document.querySelector(".newTodo");
   //   newTodo.addEventListener("click", () => {
   //     const todo = todoModal();
-  //     if (todo) loadOneTodo(todo);
+  //     if (todo) loadTodo(todo);
   //   });
 
   //   const newProject = document.querySelector(".newProject");
   //   newProject.addEventListener("click", () => {
   //     const project = projectModal();
-  //     if (project) loadOneProject(project);
+  //     if (project) loadProject(project);
   //   });
 }

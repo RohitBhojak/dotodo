@@ -1,6 +1,7 @@
 import { format, isPast, isToday } from "date-fns";
 import ls from "../utils/storage";
 
+// Create a todo node
 function createTodoNode(todo) {
   const node = document.createElement("li");
   node.dataset.pid = todo.pid;
@@ -31,6 +32,7 @@ function createTodoNode(todo) {
 
 const todoList = document.querySelector("#todo-list");
 
+// Load the complete todo list for the selected highlight/project
 function loadTodoList(check) {
   todoList.innerHTML = "";
   switch (check) {
@@ -67,6 +69,7 @@ function loadTodoList(check) {
   }
 }
 
+// Load a single todo to DOM
 function loadTodo(todo) {
   todoList.appendChild(createTodoNode(todo));
 }

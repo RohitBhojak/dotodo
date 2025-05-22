@@ -11,6 +11,7 @@ export default function projectModal() {
     dialog.close();
     return project;
   });
+
   dialog.querySelector(".cancel").addEventListener("click", () => {
     dialog.close();
     return null;

@@ -1,5 +1,6 @@
 import ls from "../utils/storage";
 
+// Create a project node
 function createProjectNode(project) {
   const node = document.createElement("li");
   node.dataset.pid = project.pid;
@@ -19,6 +20,7 @@ function createProjectNode(project) {
   return node;
 }
 
+// Load list of all projects to DOM
 const projects = document.querySelector(".projects");
 function loadProjectList() {
   projects.innerHTML = "";
@@ -26,6 +28,7 @@ function loadProjectList() {
   projectList.forEach(loadProject);
 }
 
+// Load a single project to DOM
 function loadProject(project) {
   projects.appendChild(createProjectNode(project));
 }

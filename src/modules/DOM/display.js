@@ -1,4 +1,4 @@
-import todoUtil from "../utils/todoUtil";
+import Todo from "../classes/todoClass";
 import projectUtil from "../utils/projectUtil";
 import ls from "../utils/storage";
 import { loadProjectList } from "./loadProjectList";
@@ -13,7 +13,7 @@ export default function display() {
   });
 
   // const p1 = projectUtil.createProject("p1");
-  // const todo1 = todoUtil.createTodo(
+  // const todo1 = new Todo(
   //   p1.pid,
   //   "a",
   //   "b",
@@ -21,7 +21,7 @@ export default function display() {
   //   "low",
   //   false,
   // );
-  // const todo2 = todoUtil.createTodo(
+  // const todo2 = new Todo(
   //   p1.pid,
   //   "e",
   //   "f",
@@ -33,7 +33,7 @@ export default function display() {
   // projectUtil.addTodo(todo2);
 
   // const p2 = projectUtil.createProject("p2");
-  // const todo4 = todoUtil.createTodo(
+  // const todo4 = new Todo(
   //   p2.pid,
   //   "i",
   //   "j",
@@ -41,7 +41,7 @@ export default function display() {
   //   "high",
   //   false,
   // );
-  // const todo3 = todoUtil.createTodo(
+  // const todo3 = new Todo(
   //   p2.pid,
   //   "p",
   //   "o",

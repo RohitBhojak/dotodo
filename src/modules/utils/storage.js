@@ -33,6 +33,7 @@ const ls = (function () {
     localStorage.removeItem(pid);
   }
 
+  // Get all project IDs
   function getPids() {
     return Object.keys(localStorage);
   }
