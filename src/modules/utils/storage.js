@@ -38,6 +38,7 @@ const ls = (function () {
     return Object.keys(localStorage);
   }
 
+  // Get all projects
   function getProjectList() {
     const projectList = [];
     getPids().map((pid) => projectList.push(retrieveProject(pid)));

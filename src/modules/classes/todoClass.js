@@ -1,6 +1,6 @@
 export default class Todo {
   constructor(pid, title, description, dueDate, priority, isDone = false) {
-    this.pid = pid;
+    this.pid = pid; // Parent project ID
     this.tid = Date.now(); // Todo ID
     this.title = title;
     this.description = description;
