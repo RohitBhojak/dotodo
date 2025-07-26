@@ -1,10 +1,10 @@
 import Todo from "../classes/todoClass";
 import projectUtil from "../utils/projectUtil";
-import ls from "../utils/storage";
+import { getPids, getProjectList } from "../utils/storage";
 import { loadProjectList } from "./loadProjectList";
 
 export default function display() {
-  if (ls.getPids().length === 0) {
+  if (getPids().length === 0) {
     projectUtil.createDefaultProject();
   }
 
@@ -52,9 +52,9 @@ export default function display() {
   // projectUtil.addTodo(todo3);
   // projectUtil.addTodo(todo4);
 
-  console.log(JSON.stringify(ls.getProjectList()));
-  console.log(ls.getPids());
+  console.log(JSON.stringify(getProjectList()));
+  console.log(getPids());
 
-  const list = ls.getProjectList().flatMap((project) => project.list);
+  const list = getProjectList().flatMap((project) => project.list);
   console.log(JSON.stringify(list));
 }

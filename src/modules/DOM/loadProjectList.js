@@ -1,4 +1,4 @@
-import ls from "../utils/storage";
+import { getProjectList } from "../utils/storage";
 
 // Create a project node
 function createProjectNode(project) {
@@ -24,7 +24,7 @@ function createProjectNode(project) {
 const projects = document.querySelector(".projects");
 function loadProjectList() {
   projects.innerHTML = "";
-  const projectList = ls.getProjectList();
+  const projectList = getProjectList();
   projectList.forEach(loadProject);
 }
 

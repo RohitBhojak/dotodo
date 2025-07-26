@@ -1,5 +1,5 @@
 import Todo from "../classes/todoClass";
-import projectUtil from "../utils/projectUtil";
+import { addTodo } from "../utils/projectUtil";
 
 export default function todoModal() {
   const dialog = document.querySelector("#newTodo");
@@ -19,7 +19,7 @@ export default function todoModal() {
 
     // create todo
     const todo = new Todo(pid, title, description, dueDate, priority, isDone);
-    projectUtil.addTodo(todo);
+    addTodo(todo);
     dialog.reset();
     dialog.close();
     return todo;

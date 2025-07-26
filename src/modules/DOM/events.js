@@ -2,7 +2,7 @@ import { loadTodoList, loadTodo } from "./loadTodoList";
 import { loadProjectList, loadProject } from "./loadProjectList";
 import projectUtil from "../utils/projectUtil";
 import todoModal from "./todoModal";
-import ls from "../utils/storage";
+import { removeProject } from "../utils/storage";
 import projectModal from "./projectModal";
 
 export default function setupEvents() {
@@ -11,7 +11,7 @@ export default function setupEvents() {
     if (e.target.matches(".deleteProject")) {
       const project = e.target.closest(".project");
       const pid = project.dataset.pid;
-      ls.removeProject(pid);
+      removeProject(pid);
       project.remove();
     } else if (e.target.matches("button")) {
       left.querySelector(".active").classList.remove("active");

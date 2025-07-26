@@ -1,5 +1,5 @@
 import { format, isPast, isToday } from "date-fns";
-import ls from "../utils/storage";
+import { getProjectList, retrieveProject } from "../utils/storage";
 
 // Create a todo node
 function createTodoNode(todo) {
@@ -37,27 +37,27 @@ function loadTodoList(check) {
   todoList.innerHTML = "";
   switch (check) {
     case "tasks":
-      ls.getProjectList()
+      getProjectList()
         .flatMap((project) => project.list)
         .forEach(loadTodo);
       break;
 
     case "today":
-      ls.getProjectList()
+      getProjectList()
         .flatMap((project) => project.list)
         .filter((todo) => isToday(new Date(todo.dueDate)))
         .forEach(loadTodo);
       break;
 
     case "overdue":
-      ls.getProjectList()
+      getProjectList()
         .flatMap((project) => project.list)
         .filter((todo) => isPast(new Date(todo.dueDate)))
         .forEach(loadTodo);
       break;
 
     case "important":
-      ls.getProjectList()
+      getProjectList()
         .flatMap((project) => project.list)
         .filter((todo) => todo.priority === "high")
         .forEach(loadTodo);
@@ -65,7 +65,7 @@ function loadTodoList(check) {
 
     // in default case, pid of the project will be sent
     default:
-      ls.retrieveProject(check).list.forEach(loadTodo);
+      retrieveProject(check).list.forEach(loadTodo);
   }
 }
 
