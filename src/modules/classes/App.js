@@ -13,7 +13,8 @@ export class App {
   }
 
   // Delete project from list
-  deleteProject(project) {
+  deleteProject(title) {
+    const project = this.getProject(title);
     const index = this.projectList.findIndex(project);
     this.projectList.splice(index, 1);
     removeProject(project);
@@ -22,5 +23,10 @@ export class App {
   // Get project from list
   getProject(title) {
     return this.projectList.find((project) => project.title === title);
+  }
+
+  // Get all projects
+  getProjectList() {
+    return this.projectList;
   }
 }

@@ -1,21 +1,27 @@
 import { storeProject } from "./storage";
 
 export default class Project {
-  constructor(title) {
+  constructor(title, todoList = []) {
     this.title = title;
-    this.todoList = [];
+    this.todoList = todoList;
   }
 
   // Add todo to todoList
   addTodo(todo) {
     this.todoList.push(todo);
-    storeProject(JSON.stringify(this));
+    storeProject(this);
   }
 
   // Remove todo from todoList
-  removeTodo(todo) {
-    const index = this.todoList.findIndex(todo);
+  removeTodo(id) {
+    const index = this.todoList.findIndex((todo) => todo.id === id);
     this.todoList.splice(index, 1);
-    storeProject(JSON.stringify(this));
+    storeProject(this);
+  }
+
+  toggleTodo(id) {
+    const todo = this.todoList.find((todo) => todo.id === id);
+    todo.isDone = !todo.isDone;
+    storeProject(this);
   }
 }
