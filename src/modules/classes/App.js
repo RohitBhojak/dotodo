@@ -7,17 +7,20 @@ export class App {
 
   // Add project to list
   addProject(project) {
+    if (this.getProject(project.title)) return false; // Don't add project if it already exists
     this.projectList.push(project);
     storeProject(project);
   }
 
+  // Delete project from list
   deleteProject(project) {
     const index = this.projectList.findIndex(project);
     this.projectList.splice(index, 1);
-    removeProject();
+    removeProject(project);
   }
 
-  getProject(pid) {
-    return this.projectList.find((project) => project.pid === pid);
+  // Get project from list
+  getProject(title) {
+    return this.projectList.find((project) => project.title === title);
   }
 }
