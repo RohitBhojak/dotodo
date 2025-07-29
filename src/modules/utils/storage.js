@@ -30,9 +30,9 @@ function storeProject(project) {
 }
 
 // Remove project from storage
-function removeProject(pid) {
+function removeProject(project) {
   if (!isAvailable) return false;
-  localStorage.removeItem(pid);
+  localStorage.removeItem(project.title);
   return true;
 }
 
