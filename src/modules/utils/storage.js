@@ -20,41 +20,30 @@ function storageAvailable(type) {
 
 const isAvailable = storageAvailable("localStorage");
 
+// Store project in local storage
 function storeProject(project) {
   if (!isAvailable) return false;
-  localStorage.setItem(project.pid, JSON.stringify(project));
+  localStorage.setItem(project.title, JSON.stringify(project));
+  if (!storageAvailable("localStorage"))
+    console.log("Storage full, delete todo to free space");
   return true;
 }
 
-function retrieveProject(pid) {
-  if (!isAvailable) return false;
-  return JSON.parse(localStorage.getItem(pid));
-}
-
+// Remove project from storage
 function removeProject(pid) {
   if (!isAvailable) return false;
   localStorage.removeItem(pid);
   return true;
 }
 
-// Get all project IDs
-function getPids() {
-  if (!isAvailable) return false;
-  return Object.keys(localStorage);
-}
-
 // Get all projects
 function getProjectList() {
   if (!isAvailable) return false;
   const projectList = [];
-  getPids().map((pid) => projectList.push(retrieveProject(pid)));
+  for (let title in localStorage) {
+    projectList.push(JSON.parse(localStorage.getItem(title)));
+  }
   return projectList;
 }
 
-export {
-  storeProject,
-  retrieveProject,
-  removeProject,
-  getPids,
-  getProjectList,
-};
+export { storeProject, removeProject, getProjectList };
