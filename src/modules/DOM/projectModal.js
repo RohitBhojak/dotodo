@@ -1,4 +1,4 @@
-import { createProject } from "../utils/projectUtil";
+import Project from "../classes/Project";
 
 export default function projectModal() {
   const dialog = document.querySelector("#newProject");
@@ -6,7 +6,7 @@ export default function projectModal() {
   dialog.addEventListener("submit", (event) => {
     event.preventDefault();
     const title = document.querySelector("#title").value;
-    const project = createProject(title);
+    const project = new Project(title);
     dialog.reset();
     dialog.close();
     return project;
