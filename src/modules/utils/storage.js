@@ -25,7 +25,7 @@ function storeProject(project) {
   if (!isAvailable) return false;
   localStorage.setItem(project.title, JSON.stringify(project));
   if (!storageAvailable("localStorage"))
-    console.log("Storage full, delete todo to free space");
+    alert("Storage full, delete todo to free space");
   return true;
 }
 

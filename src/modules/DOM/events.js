@@ -1,9 +1,38 @@
+import App from "./modules/classes/App";
+import Project from "./modules/classes/Project";
+import { getProjectList } from "./modules/utils/storage";
 import { loadTodoList, loadTodo } from "./loadTodoList";
-import { loadProject } from "./loadProjectList";
+import { loadProjectList, loadProject } from "./loadProjectList";
 import projectModal from "./projectModal";
 import todoModal from "./todoModal";
 
-export default function setupEvents(app) {
+export default function setupEvents() {
+  // Initialize app
+  const app = new App();
+
+  // Load projects from storage on startup
+  document.addEventListener("DOMContentLoaded", () => {
+    // Get project list from storage
+    const projectList = getProjectList();
+    // Alert if storage is unavailable
+    if (projectList === false) {
+      alert("Storage Unavailable, data will not be saved");
+    }
+    // Create default project if storage is unavailable or no projects exist
+    if (!projectList) {
+      app.addProject(new Project("Default"));
+    } else {
+      // Initialize projects from storage
+      projectList.forEach((project) =>
+        app.addProject(new Project(project.title, project.todoList)),
+      );
+    }
+    // Load project list
+    loadProjectList(app);
+    // Load todo list
+    loadTodoList("Tasks", app);
+  });
+
   // Event listener for left nav
   const left = document.querySelector(".left");
   left.addEventListener("click", (e) => {
