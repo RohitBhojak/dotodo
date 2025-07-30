@@ -29,8 +29,9 @@ export default function setupEvents() {
     }
     // Load project list
     loadProjectList(app);
-    // Load todo list
-    loadTodoList("Tasks", app);
+    // Load todo list of active project/highlight
+    const active = document.querySelector(".active");
+    loadTodoList(active.textContent, app);
   });
 
   // Event listener for left nav
@@ -70,7 +71,7 @@ export default function setupEvents() {
   });
 
   // Event listener for new project modal
-  const newProject = document.querySelector(".newProject");
+  const newProject = document.querySelector(".new-project");
   newProject.addEventListener("click", () => {
     const project = projectModal();
     if (project) {
@@ -80,7 +81,7 @@ export default function setupEvents() {
   });
 
   // Event listener for new todo modal
-  const newTodo = document.querySelector(".newTodo");
+  const newTodo = document.querySelector(".new-todo");
   newTodo.addEventListener("click", () => {
     const todo = todoModal();
     if (todo) {
