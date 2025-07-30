@@ -14,10 +14,17 @@ export default function todoModal() {
     const activeProject = document.querySelector(".project.active");
 
     // get project id, set to default if no project is active
-    const pid = activeProject ? activeProject.dataset.pid : 0;
+    const parent = activeProject ? activeProject.textContent : "Default";
 
     // create todo
-    const todo = new Todo(pid, title, description, dueDate, priority, isDone);
+    const todo = new Todo(
+      parent,
+      title,
+      description,
+      dueDate,
+      priority,
+      isDone,
+    );
     dialog.reset();
     dialog.close();
     return todo;
