@@ -74,6 +74,13 @@ function handleDeleteProject(event) {
   const title = project.querySelector(".title").textContent;
   app.deleteProject(title);
   project.remove();
+  // Load todo list of active project/highlight
+  const active = document.querySelector(".active");
+  if (active === null) {
+    // if active is deleted set Tasks as active
+    document.querySelector(".highlight .title").classList.add("active");
+  }
+  loadTodoList(active.textContent, app);
 }
 
 function handleLoadTodoList(event) {

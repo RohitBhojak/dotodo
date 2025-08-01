@@ -12,10 +12,6 @@ export default function handleTodoModal(app) {
   const priority = todoForm.querySelector("#priority");
   const isDone = todoForm.querySelector("#isDone");
 
-  // Set due date to today by default
-  const currentDate = new Date();
-  dueDate.value = currentDate.toISOString().split("T")[0];
-
   // Validate title on input
   title.addEventListener("input", () => {
     title.setCustomValidity("");
@@ -27,6 +23,9 @@ export default function handleTodoModal(app) {
 
   // Event listener for new todo button
   newTodo.addEventListener("click", () => {
+    // Set due date to today by default
+    const currentDate = new Date();
+    dueDate.value = currentDate.toISOString().split("T")[0];
     newTodoModal.showModal();
   });
 

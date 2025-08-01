@@ -24,9 +24,7 @@ export default class App {
 
   // Get project from list
   getProject(title) {
-    console.log(this.projectList);
     const project = this.projectList.find((project) => project.title === title);
-    console.log(project);
     return project;
   }
 
