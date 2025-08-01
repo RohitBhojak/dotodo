@@ -20,7 +20,7 @@ export default function setupEvents() {
       handleDeleteProject(event);
     } else if (
       event.target.matches(".highlight") ||
-      event.target.matches(".project")
+      event.target.matches(".title")
     ) {
       // Load todo list of project/highlight event
       handleLoadTodoList(event);

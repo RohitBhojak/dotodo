@@ -1,4 +1,4 @@
-import { format, isPast, isToday } from "date-fns";
+import { format, differenceInCalendarDays, isToday } from "date-fns";
 
 // Create a todo node
 function createTodoNode(todo) {
@@ -55,7 +55,12 @@ function loadTodoList(check, app) {
       app
         .getProjectList()
         .flatMap((project) => project.todoList)
-        .filter((todo) => isPast(new Date(todo.dueDate)))
+
+        .filter(
+          (todo) =>
+            differenceInCalendarDays(new Date(todo.dueDate), new Date()) < 0,
+        ) // Check if due date is before today
+
         .forEach(loadTodo);
       break;
 
