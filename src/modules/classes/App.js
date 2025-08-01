@@ -1,6 +1,6 @@
 import { storeProject, removeProject } from "../utils/storage";
 
-export class App {
+export default class App {
   constructor() {
     this.projectList = [];
   }

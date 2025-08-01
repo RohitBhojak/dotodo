@@ -34,10 +34,10 @@
     </div>
     <!-- new todo modal -->
     <dialog id="newTodo">
-      <form>
+      <form novalidate>
         <div>
-          <label for="title">Title</label>
-          <input type="text" name="title" id="title" />
+          <label for="title">Title <span>*</span></label>
+          <input type="text" name="title" id="title" required />
         </div>
         <div>
           <label for="description">Description</label>
@@ -55,8 +55,8 @@
         <div>
           <label for="priority">Priority</label>
           <select name="priority" id="priority">
-            <option value="low">Low</option>
-            <option value="medium" selected>Medium</option>
+            <option value="low" selected>Low</option>
+            <option value="medium">Medium</option>
             <option value="high">High</option>
           </select>
         </div>
@@ -73,10 +73,10 @@
 
     <!-- new project modal -->
     <dialog id="newProject">
-      <form>
+      <form novalidate>
         <div>
-          <label for="title">Title</label>
-          <input type="text" name="title" id="title" />
+          <label for="title">Title <span>*</span></label>
+          <input type="text" name="title" id="title" required />
         </div>
         <div>
           <button type="submit">Create</button>

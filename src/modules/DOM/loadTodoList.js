@@ -33,6 +33,7 @@ const todoListNode = document.querySelector("#todo-list");
 
 // Load the complete todo list for the selected highlight/project
 function loadTodoList(check, app) {
+  console.log(app);
   todoListNode.innerHTML = "";
   switch (check) {
     case "Tasks":

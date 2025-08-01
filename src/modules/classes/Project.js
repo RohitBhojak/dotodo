@@ -1,4 +1,4 @@
-import { storeProject } from "./storage";
+import { storeProject } from "../utils/storage";
 
 export default class Project {
   constructor(title, todoList = []) {

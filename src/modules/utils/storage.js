@@ -40,7 +40,7 @@ function removeProject(project) {
 function getProjectList() {
   if (!isAvailable) return false;
   const projectList = [];
-  for (let title in localStorage) {
+  for (let title of Object.keys(localStorage)) {
     projectList.push(JSON.parse(localStorage.getItem(title)));
   }
   return projectList;

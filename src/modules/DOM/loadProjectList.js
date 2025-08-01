@@ -8,9 +8,10 @@ function createProjectNode(project) {
   button.textContent = project.title;
   node.appendChild(button);
   // Don't add delete button for default project
-  if (project.textContent !== "Default") {
+  if (project.title !== "Default") {
     const deleteProject = document.createElement("button");
     deleteProject.classList.add("deleteProject");
+    deleteProject.textContent = "Delete";
     node.appendChild(deleteProject);
   }
 

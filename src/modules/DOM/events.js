@@ -1,92 +1,101 @@
-import App from "./modules/classes/App";
-import Project from "./modules/classes/Project";
-import { getProjectList } from "./modules/utils/storage";
-import { loadTodoList, loadTodo } from "./loadTodoList";
-import { loadProjectList, loadProject } from "./loadProjectList";
-import projectModal from "./projectModal";
-import todoModal from "./todoModal";
+import App from "../classes/App";
+import Project from "../classes/Project";
+import { getProjectList } from "../utils/storage";
+import { loadTodoList } from "./loadTodoList";
+import { loadProjectList } from "./loadProjectList";
+import handleProjectModal from "./handleProjectModal";
+import handleTodoModal from "./handleTodoModal";
 
+// Initialize app
+const app = new App();
 export default function setupEvents() {
-  // Initialize app
-  const app = new App();
-
   // Load projects from storage on startup
-  document.addEventListener("DOMContentLoaded", () => {
-    // Get project list from storage
-    const projectList = getProjectList();
-    // Alert if storage is unavailable
-    if (projectList === false) {
-      alert("Storage Unavailable, data will not be saved");
-    }
-    // Create default project if storage is unavailable or no projects exist
-    if (!projectList) {
-      app.addProject(new Project("Default"));
-    } else {
-      // Initialize projects from storage
-      projectList.forEach((project) =>
-        app.addProject(new Project(project.title, project.todoList)),
-      );
-    }
-    // Load project list
-    loadProjectList(app);
-    // Load todo list of active project/highlight
-    const active = document.querySelector(".active");
-    loadTodoList(active.textContent, app);
-  });
+  document.addEventListener("DOMContentLoaded", handleDOMContentLoaded);
 
-  // Event listener for left nav
+  // Event listener for left div
   const left = document.querySelector(".left");
-  left.addEventListener("click", (e) => {
-    // Delete project event
-    if (e.target.matches(".deleteProject")) {
-      const project = e.target.closest(".project");
-      app.deleteProject(project.textContent);
-      project.remove();
-    } else if (e.target.matches("button")) {
-      // Load todo list of project event
-      left.querySelector(".active").classList.remove("active");
-      e.target.classList.add("active");
-      loadTodoList(e.target.parentNode.textContent);
+  left.addEventListener("click", (event) => {
+    if (event.target.matches(".deleteProject")) {
+      // Delete project event
+      handleDeleteProject(event);
+    } else if (
+      event.target.matches(".highlight") ||
+      event.target.matches(".project")
+    ) {
+      // Load todo list of project/highlight event
+      handleLoadTodoList(event);
     }
   });
 
-  // Event listener for right nav
+  // Event listener for right div
   const right = document.querySelector(".right");
-  right.addEventListener("click", (e) => {
-    // Delete todo event
-    if (e.target.matches(".deleteTodo")) {
-      const todo = e.target.closest(".todo");
-      const parent = todo.dataset.parent;
-      const id = todo.dataset.id;
-      app.getProject(parent).removeTodo(id);
-      todo.remove();
-    } else if (e.target.matches(".toggle")) {
+  right.addEventListener("click", (event) => {
+    if (event.target.matches(".deleteTodo")) {
+      // Delete todo event
+      handleDeleteTodo(event);
+    } else if (event.target.matches(".toggle")) {
       // Toggle todo event
-      const todo = e.target.closest(".todo");
-      const parent = todo.dataset.parent;
-      const id = todo.dataset.id;
-      app.getProject(parent).toggleTodo(id);
-      todo.classList.toggle("done");
+      handleToggleTodo(event);
     }
   });
 
-  // Event listener for new project modal
-  const newProject = document.querySelector(".new-project");
-  newProject.addEventListener("click", () => {
-    const project = projectModal();
-    if (project) {
-      app.addProject(project);
-      loadProject(project);
-    }
-  });
+  // Setup event listener for new project modal
+  handleProjectModal(app);
 
-  // Event listener for new todo modal
-  const newTodo = document.querySelector(".new-todo");
-  newTodo.addEventListener("click", () => {
-    const todo = todoModal();
-    if (todo) {
-      app.getProject(todo.parent).addTodo(todo);
-      loadTodo(todo);
-    }
-  });
+  // Setup event listener for new todo modal
+  handleTodoModal(app);
+}
+
+function handleDOMContentLoaded() {
+  // Get project list from storage
+  const projectList = getProjectList();
+  // Alert if storage is unavailable
+  if (projectList === false) {
+    alert("Storage Unavailable, data will not be saved");
+  }
+  // Create default project if storage is unavailable or no projects exist
+  if (!projectList || projectList.length === 0) {
+    app.addProject(new Project("Default"));
+    console.log("default created");
+  } else {
+    // Initialize projects from storage
+    console.log(projectList);
+    projectList.forEach((project) =>
+      app.addProject(new Project(project.title, project.todoList)),
+    );
+    console.log("list loaded");
+  }
+  // Load project list
+  loadProjectList(app);
+  // Load todo list of active project/highlight
+  const active = document.querySelector(".active");
+  loadTodoList(active.textContent, app);
+}
+
+function handleDeleteProject(event) {
+  const project = event.target.closest(".project");
+  app.deleteProject(project.textContent);
+  project.remove();
+}
+
+function handleLoadTodoList(event) {
+  document.querySelector(".active").classList.remove("active");
+  event.target.classList.add("active");
+  loadTodoList(event.target.parentNode.textContent, app);
+}
+
+function handleDeleteTodo(event) {
+  const todo = event.target.closest(".todo");
+  const parent = todo.dataset.parent;
+  const id = todo.dataset.id;
+  app.getProject(parent).removeTodo(id);
+  todo.remove();
+}
+
+function handleToggleTodo(event) {
+  const todo = event.target.closest(".todo");
+  const parent = todo.dataset.parent;
+  const id = todo.dataset.id;
+  app.getProject(parent).toggleTodo(id);
+  todo.classList.toggle("done");
 }
