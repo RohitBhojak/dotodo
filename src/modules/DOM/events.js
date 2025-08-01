@@ -18,10 +18,7 @@ export default function setupEvents() {
     if (event.target.matches(".deleteProject")) {
       // Delete project event
       handleDeleteProject(event);
-    } else if (
-      event.target.matches(".highlight") ||
-      event.target.matches(".title")
-    ) {
+    } else if (event.target.matches(".title")) {
       // Load todo list of project/highlight event
       handleLoadTodoList(event);
     }
@@ -73,15 +70,17 @@ function handleDOMContentLoaded() {
 }
 
 function handleDeleteProject(event) {
-  const project = event.target.closest(".project");
-  app.deleteProject(project.textContent);
+  const project = event.target.parentElement;
+  const title = project.querySelector(".title").textContent;
+  app.deleteProject(title);
   project.remove();
 }
 
 function handleLoadTodoList(event) {
   document.querySelector(".active").classList.remove("active");
   event.target.classList.add("active");
-  loadTodoList(event.target.parentNode.textContent, app);
+  console.log(event.target.textContent);
+  loadTodoList(event.target.textContent, app);
 }
 
 function handleDeleteTodo(event) {

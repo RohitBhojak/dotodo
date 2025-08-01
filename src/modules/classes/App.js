@@ -14,15 +14,20 @@ export default class App {
 
   // Delete project from list
   deleteProject(title) {
-    const project = this.getProject(title);
-    const index = this.projectList.findIndex(project);
+    const index = this.projectList.findIndex(
+      (project) => project.title === title,
+    );
+    const project = this.projectList[index];
     this.projectList.splice(index, 1);
     removeProject(project);
   }
 
   // Get project from list
   getProject(title) {
-    return this.projectList.find((project) => project.title === title);
+    console.log(this.projectList);
+    const project = this.projectList.find((project) => project.title === title);
+    console.log(project);
+    return project;
   }
 
   // Get all projects
