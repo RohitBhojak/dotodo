@@ -20,7 +20,7 @@ export default class Project {
   }
 
   toggleTodo(id) {
-    const todo = this.todoList.find((todo) => todo.id === id);
+    const todo = this.todoList.find((todo) => Number(todo.id) === Number(id));
     todo.isDone = !todo.isDone;
     storeProject(this);
   }

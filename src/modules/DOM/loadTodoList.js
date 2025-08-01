@@ -33,7 +33,7 @@ const todoListNode = document.querySelector("#todo-list");
 
 // Load the complete todo list for the selected highlight/project
 function loadTodoList(check, app) {
-  console.log(app);
+  
   todoListNode.innerHTML = "";
   switch (check) {
     case "Tasks":
@@ -58,8 +58,9 @@ function loadTodoList(check, app) {
 
         .filter(
           (todo) =>
-            differenceInCalendarDays(new Date(todo.dueDate), new Date()) < 0,
-        ) // Check if due date is before today
+            differenceInCalendarDays(new Date(todo.dueDate), new Date()) < 0 &&
+            !todo.isDone,
+        ) // Check if due date is before today and is not done
 
         .forEach(loadTodo);
       break;

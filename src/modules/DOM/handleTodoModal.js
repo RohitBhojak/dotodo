@@ -64,7 +64,7 @@ export default function handleTodoModal(app) {
 function getParent() {
   const active = document.querySelector(".active");
   // if highlight is active, use default project
-  return active.classList.contains("highlight")
+  return active.parentElement.classList.contains("highlight")
     ? "Default"
     : active.textContent;
 }

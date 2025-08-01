@@ -53,14 +53,11 @@ function handleDOMContentLoaded() {
   // Create default project if storage is unavailable or no projects exist
   if (!projectList || projectList.length === 0) {
     app.addProject(new Project("Default"));
-    console.log("default created");
   } else {
     // Initialize projects from storage
-    console.log(projectList);
     projectList.forEach((project) =>
       app.addProject(new Project(project.title, project.todoList)),
     );
-    console.log("list loaded");
   }
   // Load project list
   loadProjectList(app);
@@ -86,7 +83,6 @@ function handleDeleteProject(event) {
 function handleLoadTodoList(event) {
   document.querySelector(".active").classList.remove("active");
   event.target.classList.add("active");
-  console.log(event.target.textContent);
   loadTodoList(event.target.textContent, app);
 }
 
@@ -102,6 +98,7 @@ function handleToggleTodo(event) {
   const todo = event.target.closest(".todo");
   const parent = todo.dataset.parent;
   const id = todo.dataset.id;
+
   app.getProject(parent).toggleTodo(id);
   todo.classList.toggle("done");
 }
