@@ -33,6 +33,9 @@ export default function setupEvents() {
     } else if (event.target.matches(".toggle")) {
       // Toggle todo event
       handleToggleTodo(event);
+    } else if (event.target.closest(".todo")) {
+      // Expand todo event
+      handleExpandTodo(event);
     }
   });
 
@@ -104,4 +107,9 @@ function handleToggleTodo(event) {
   app.getProject(parent).toggleTodo(id);
   app.updateStorage();
   todo.classList.toggle("done");
+}
+
+function handleExpandTodo(event) {
+  const todo = event.target.closest(".todo");
+  todo.classList.toggle("expanded");
 }

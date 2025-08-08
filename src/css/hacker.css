@@ -332,3 +332,31 @@ dialog button[type="submit"] {
 .theme::before {
   content: "SYS_STATUS: ONLINE";
 }
+
+/* --- Description Expansion Styling --- */
+
+/* Hide the description by default */
+.todo .description {
+  max-height: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.3s ease-out,
+    padding 0.3s ease-out;
+  flex-basis: 100%; /* Make it take the full width */
+  padding-left: 2rem;
+  color: var(--accent-color);
+  opacity: 0.9;
+  font-size: 0.9em;
+}
+
+/* Style for the terminal branch arrow */
+.todo .description::before {
+  content: "└> ";
+  opacity: 0.7;
+}
+
+/* When the .todo item has the .expanded class, show the description */
+.todo.expanded .description {
+  max-height: 200px; /* Or a height that fits your longest description */
+  padding-top: 0.5rem;
+}
