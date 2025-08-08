@@ -14,7 +14,9 @@ export default class Project {
 
   // Remove todo from todoList
   removeTodo(id) {
-    const index = this.todoList.findIndex((todo) => todo.id === id);
+    const index = this.todoList.findIndex(
+      (todo) => Number(todo.id) === Number(id),
+    );
     this.todoList.splice(index, 1);
     storeProject(this);
   }
