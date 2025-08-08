@@ -1,0 +1,334 @@
+/* --- Google Font Import --- */
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap");
+
+/* --- CSS Variables (Hacker Theme) --- */
+:root {
+  --font-heading: "VT323", monospace;
+  --font-body: "Share Tech Mono", monospace;
+
+  --bg-color: #0d0d0d;
+  --text-color: #00ff41; /* Main glowing green */
+  --accent-color: #00ffff; /* Cyan for highlights */
+  --error-color: #ff003c; /* Red for deletion/errors */
+  --shadow-color: rgba(0, 255, 65, 0.5);
+  --border-color: rgba(0, 255, 65, 0.3);
+  --container-bg: rgba(0, 255, 65, 0.05);
+}
+
+/* --- Keyframe Animations --- */
+/* @keyframes text-flicker {
+  0%,
+  100% {
+    text-shadow:
+      0 0 2px var(--shadow-color),
+      0 0 5px var(--shadow-color);
+    opacity: 1;
+  }
+  50% {
+    text-shadow: none;
+    opacity: 0.9;
+  }
+} */
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-10%);
+  }
+  100% {
+    transform: translateY(110%);
+  }
+}
+
+/* --- General Styles --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  text-shadow:
+    0 0 2px var(--shadow-color),
+    0 0 5px var(--shadow-color);
+  animation: text-flicker 10s linear infinite;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "header header"
+    "left right";
+  height: 100vh;
+  overflow: hidden; /* Hide scrollbars */
+  /* CRT screen lines effect */
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.5) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+}
+
+/* Scanline overlay */
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 255, 65, 0) 0%,
+    rgba(0, 255, 65, 0.2) 50%,
+    rgba(0, 255, 65, 0) 100%
+  );
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+}
+
+h1,
+h2 {
+  font-family: var(--font-heading);
+  color: var(--accent-color);
+  text-transform: uppercase;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: var(--font-body);
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: crosshair;
+  font-size: 1rem;
+}
+
+/* --- Layout --- */
+header,
+.left,
+.right,
+dialog {
+  border: 1px solid var(--border-color);
+  box-shadow: inset 0 0 8px rgba(0, 255, 65, 0.2);
+}
+
+header {
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1.5rem;
+}
+
+header h1 {
+  font-size: 2rem;
+}
+
+.left {
+  grid-area: left;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.right {
+  grid-area: right;
+  padding: 1rem;
+}
+
+/* --- Left Pane: Highlights & Projects --- */
+.highlights h2,
+.projects h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.highlights h2::before {
+  content: "SYS_LINKS> ";
+}
+.projects h2::before {
+  content: "DIR_LIST> ";
+}
+
+.highlight .title,
+.project .title {
+  width: 100%;
+  text-align: left;
+  padding: 0.25rem 0.5rem;
+  transition: all 0.2s;
+}
+
+.highlight .title::before,
+.project .title::before {
+  content: ">> ";
+  opacity: 0.5;
+}
+
+.highlight .title.active,
+.project .title.active {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  text-shadow: none;
+}
+.project {
+  display: flex;
+  align-items: center;
+}
+
+/* --- Right Pane: Todos --- */
+.todos h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.todos h2::before {
+  content: "PROCESS_QUEUE> ";
+}
+
+#todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.todo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.todo .title {
+  flex-grow: 1;
+}
+
+.todo.done {
+  color: rgba(0, 255, 65, 0.4);
+  text-shadow: none;
+}
+.todo.done .title {
+  text-decoration: line-through;
+}
+
+/* Custom Checkbox Toggle */
+.todo .toggle::before {
+  content: "[ ]";
+}
+.todo.done .toggle::before {
+  content: "[X]";
+}
+
+/* --- Buttons --- */
+.new-project,
+.new-todo,
+.deleteProject,
+.deleteTodo,
+.theme {
+  border: 1px solid var(--text-color);
+  padding: 0 0.5rem;
+  transition: all 0.2s;
+}
+.new-project:hover,
+.new-todo:hover,
+.deleteProject:hover,
+.deleteTodo:hover,
+.theme:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  text-shadow: none;
+}
+
+.deleteTodo,
+.deleteProject {
+  border-color: var(--error-color);
+  color: var(--error-color);
+}
+.deleteTodo::before {
+  content: "KILL";
+}
+.deleteProject::before {
+  content: "RMDIR";
+}
+.deleteTodo:hover,
+.deleteProject:hover {
+  background-color: var(--error-color);
+  color: var(--bg-color);
+}
+
+/* --- Modals / Dialogs --- */
+dialog {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 1.5rem;
+  width: 90%;
+  max-width: 500px;
+}
+dialog::backdrop {
+  background-color: rgba(13, 13, 13, 0.6);
+  backdrop-filter: blur(2px);
+}
+dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+dialog p {
+  font-size: 1.2rem;
+  font-family: var(--font-heading);
+  color: var(--error-color);
+  text-align: center;
+}
+
+dialog label {
+  font-size: 1.1rem;
+}
+dialog label::before {
+  content: "> ";
+}
+dialog label span {
+  color: var(--error-color);
+}
+
+dialog input,
+dialog textarea,
+dialog select {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--text-color);
+  color: var(--text-color);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.25rem;
+  width: 100%;
+}
+dialog input:focus,
+dialog textarea:focus,
+dialog select:focus {
+  outline: none;
+  background-color: var(--container-bg);
+  border-bottom-color: var(--accent-color);
+}
+dialog button {
+  border: 1px solid var(--text-color);
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+}
+dialog button[type="submit"] {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  text-shadow: none;
+}
+
+/* --- Theme Button as a deco element --- */
+.theme {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+.theme::before {
+  content: "SYS_STATUS: ONLINE";
+}

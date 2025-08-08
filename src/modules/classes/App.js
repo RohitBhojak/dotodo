@@ -1,4 +1,4 @@
-import { storeProject, removeProject } from "../utils/storage";
+import { storeProjectList } from "../utils/storage";
 
 export default class App {
   constructor() {
@@ -9,7 +9,7 @@ export default class App {
   addProject(project) {
     if (this.getProject(project.title)) return false; // Don't add project if it already exists
     this.projectList.push(project);
-    storeProject(project);
+    this.updateStorage();
   }
 
   // Delete project from list
@@ -17,9 +17,8 @@ export default class App {
     const index = this.projectList.findIndex(
       (project) => project.title === title,
     );
-    const project = this.projectList[index];
     this.projectList.splice(index, 1);
-    removeProject(project);
+    this.updateStorage();
   }
 
   // Get project from list
@@ -31,5 +30,9 @@ export default class App {
   // Get all projects
   getProjectList() {
     return this.projectList;
+  }
+
+  updateStorage() {
+    storeProjectList(this.projectList);
   }
 }

@@ -1,5 +1,3 @@
-import { storeProject } from "../utils/storage";
-
 export default class Project {
   constructor(title, todoList = []) {
     this.title = title;
@@ -9,7 +7,6 @@ export default class Project {
   // Add todo to todoList
   addTodo(todo) {
     this.todoList.push(todo);
-    storeProject(this);
   }
 
   // Remove todo from todoList
@@ -18,12 +15,10 @@ export default class Project {
       (todo) => Number(todo.id) === Number(id),
     );
     this.todoList.splice(index, 1);
-    storeProject(this);
   }
 
   toggleTodo(id) {
     const todo = this.todoList.find((todo) => Number(todo.id) === Number(id));
     todo.isDone = !todo.isDone;
-    storeProject(this);
   }
 }

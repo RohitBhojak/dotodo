@@ -92,6 +92,7 @@ function handleDeleteTodo(event) {
   const parent = todo.dataset.parent;
   const id = todo.dataset.id;
   app.getProject(parent).removeTodo(id);
+  app.updateStorage();
   todo.remove();
 }
 
@@ -101,5 +102,6 @@ function handleToggleTodo(event) {
   const id = todo.dataset.id;
 
   app.getProject(parent).toggleTodo(id);
+  app.updateStorage();
   todo.classList.toggle("done");
 }

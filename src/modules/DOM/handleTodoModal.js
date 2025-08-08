@@ -45,6 +45,7 @@ export default function handleTodoModal(app) {
         isDone.checked,
       );
       app.getProject(parent).addTodo(todo);
+      app.updateStorage();
       loadTodo(todo);
     } else {
       title.reportValidity();

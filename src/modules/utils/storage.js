@@ -1,4 +1,7 @@
-// check availability
+// A single, namespaced key to store the entire project list
+const PROJECTS_KEY = "DOTODO_projects";
+
+// Helper function to check for storage availability
 function storageAvailable(type) {
   let storage;
   try {
@@ -11,7 +14,6 @@ function storageAvailable(type) {
     return (
       e instanceof DOMException &&
       e.name === "QuotaExceededError" &&
-      // acknowledge QuotaExceededError only if there's something already stored
       storage &&
       storage.length !== 0
     );
@@ -20,30 +22,27 @@ function storageAvailable(type) {
 
 const isAvailable = storageAvailable("localStorage");
 
-// Store project in local storage
-function storeProject(project) {
-  if (!isAvailable) return false;
-  localStorage.setItem(project.title, JSON.stringify(project));
-  if (!storageAvailable("localStorage"))
-    alert("Storage full, delete todo to free space");
-  return true;
-}
-
-// Remove project from storage
-function removeProject(project) {
-  if (!isAvailable) return false;
-  localStorage.removeItem(project.title);
-  return true;
-}
-
-// Get all projects
+// Retrieves the entire list of projects from localStorage
 function getProjectList() {
   if (!isAvailable) return false;
-  const projectList = [];
-  for (let title of Object.keys(localStorage)) {
-    projectList.push(JSON.parse(localStorage.getItem(title)));
-  }
-  return projectList;
+
+  const projectListData = localStorage.getItem(PROJECTS_KEY);
+
+  // If no data exists, return an empty array.
+  return projectListData ? JSON.parse(projectListData) : [];
 }
 
-export { storeProject, removeProject, getProjectList };
+// Stores the entire list of projects in localStorage
+function storeProjectList(projectList) {
+  if (!isAvailable) return false;
+
+  localStorage.setItem(PROJECTS_KEY, JSON.stringify(projectList));
+
+  if (!storageAvailable("localStorage")) {
+    alert("Storage full, delete items to free space");
+  }
+
+  return true;
+}
+
+export { getProjectList, storeProjectList };
