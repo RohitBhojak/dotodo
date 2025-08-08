@@ -11,7 +11,6 @@ function createProjectNode(project) {
   if (project.title !== "Default") {
     const deleteProject = document.createElement("button");
     deleteProject.classList.add("deleteProject");
-    deleteProject.textContent = "Delete";
     node.appendChild(deleteProject);
   }
 

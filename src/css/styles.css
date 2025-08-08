@@ -1,71 +1,533 @@
-@import url("https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap");
-
-:root[data-theme="light"] {
-  --text: hsl(263, 31%, 5%);
-  --background: hsl(255, 40%, 98%);
-  --primary: hsl(259, 38%, 25%);
-  --secondary: hsl(259, 43%, 66%);
-  --accent: hsl(259, 47%, 45%);
-}
-
-:root[data-theme="dark"] {
-  --text: hsl(262, 31%, 95%);
-  --background: hsl(255, 40%, 2%);
-  --primary: hsl(259, 38%, 75%);
-  --secondary: hsl(259, 43%, 34%);
-  --accent: hsl(259, 47%, 55%);
-}
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap");
 
 :root {
+  --font-heading: "VT323", monospace;
+  --font-body: "Share Tech Mono", monospace;
+  --bg-color: #0d0d0d;
+  --text-color: #00ff41;
+  --accent-color: #00ffff;
+  --dim-accent-color: rgba(0, 255, 255, 0.5);
+  --error-color: #ff003c;
+  --shadow-color: rgba(0, 255, 65, 0.5);
+  --border-color: rgba(0, 255, 65, 0.3);
+  --container-bg: rgba(0, 255, 65, 0.05);
+  --warning-color: #ffc600;
+  --low-priority-color: #008f11;
+  --shadow-warning-color: rgba(255, 198, 0, 0.5);
+  --shadow-error-color: rgba(255, 0, 60, 0.5);
+  --shadow-low-priority-color: rgba(0, 143, 17, 0.5);
   font-size: 62.5%;
 }
 
+/* Background animation */
+@keyframes scanline {
+  0% {
+    transform: translateY(-20%);
+  }
+  100% {
+    transform: translateY(1010%);
+  }
+}
+
+/* CSS Reset */
 * {
-  font-family: "Hi Melody";
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
   list-style: none;
+  line-height: 1.5;
 }
 
 body {
-  font-size: 2rem;
+  font-family: var(--font-body);
+  color: var(--text-color);
+  text-shadow:
+    0 0 2px var(--shadow-color),
+    0 0 5px var(--shadow-color);
   display: grid;
-  min-height: 100vh;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 350px 1fr;
   grid-template-rows: auto 1fr;
-  grid-template-areas: "header header" "left right";
-  background-color: var(--background);
-  color: var(--text);
-  transition:
-    background-color 0.5s ease-in-out,
-    color 0.5s ease-in-out;
+  grid-template-areas:
+    "header header"
+    "left right";
+  height: 100vh;
+  overflow: hidden;
+
+  /* CRT screen lines effect */
+  background-color: var(--bg-color);
+  background-image: repeating-linear-gradient(
+    0deg,
+    hsla(0, 0%, 0%, 0.5),
+    hsla(0, 0%, 0%, 0.5) 3px,
+    transparent 3px,
+    transparent 6px
+  );
 }
 
-.header {
+/* animation */
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 255, 65, 0) 0%,
+    rgba(0, 255, 65, 0.2) 50%,
+    rgba(0, 255, 65, 0) 100%
+  );
+  animation: scanline 10s linear infinite;
+  pointer-events: none;
+}
+
+h1,
+h2 {
+  font-family: var(--font-heading);
+  color: var(--accent-color);
+}
+
+button {
+  font-family: var(--font-body);
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: crosshair;
+  font-size: 2rem;
+}
+
+/* Layout */
+header,
+.left,
+.right,
+dialog {
+  border: 1px solid var(--border-color);
+  box-shadow: inset 0 0 8px rgba(0, 255, 65, 0.2);
+}
+
+/* Header */
+header {
   grid-area: header;
-  text-align: center;
-  padding: 2rem;
-  background-color: var(--primary);
-  color: var(--text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 24px;
+}
+
+header h1 {
+  font-size: 4rem;
 }
 
 .left {
   grid-area: left;
-  padding: 2rem;
-  background-color: var(--secondary);
-  color: var(--text);
+  gap: 24px;
 }
 
 .right {
   grid-area: right;
-  padding: 2rem;
-  background-color: var(--accent);
-  color: var(--text);
 }
 
-button {
-  cursor: pointer;
+.left,
+.right {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 16px;
+}
+
+/* Left Pane: Highlights & Projects */
+
+.left button:hover:not(.new-project) {
+  color: var(--bg-color);
+  background-color: var(--low-priority-color);
+  text-shadow: none;
+}
+
+.highlights h2,
+.projects h2 {
+  font-size: 3.2rem;
+  margin-bottom: 8px;
+}
+
+.projects h2::before {
+  content: "DIR_LIST> ";
+}
+
+.highlight .title,
+.project .title {
+  width: 100%;
+  text-shadow:
+    0 0 4px var(--shadow-color),
+    0 0 8px var(--shadow-color);
+  text-align: left;
+  padding: 4px 8px;
+  transition: all 0.2s;
+}
+
+.highlight .title::before,
+.project .title::before {
+  content: ">> ";
+  opacity: 0.5;
+}
+
+.highlight .title.active,
+.project .title.active {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  text-shadow: none;
+}
+
+.project {
+  display: flex;
+  align-items: center;
+}
+
+/* Right Pane: Todos */
+.todos h2 {
+  font-size: 3.2rem;
+  margin-bottom: 16px;
+}
+
+.todos h2,
+.projects h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.todos .new-todo,
+.projects .new-project {
+  margin-left: 16px;
+}
+
+.todos h2::before {
+  content: "LIST> ";
+}
+
+#todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.todo {
+  cursor: crosshair;
+  display: grid;
+  grid-template-rows: auto 0fr;
+  transition: grid-template-rows 0.35s ease-out;
   font-size: 2rem;
+}
+
+/* Todo main */
+
+.todo-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.todo .title {
+  flex-grow: 1;
+}
+
+.todo.priority-high {
+  color: var(--error-color);
+  text-shadow:
+    0 0 2px var(--shadow-error-color),
+    0 0 5px var(--shadow-error-color);
+}
+
+.todo.priority-medium {
+  color: var(--warning-color);
+  text-shadow:
+    0 0 2px var(--shadow-warning-color),
+    0 0 5px var(--shadow-warning-color);
+}
+
+.todo.done {
+  color: var(--low-priority-color);
+  text-shadow: none;
+}
+
+.todo.done .title,
+.todo.done .dueDate {
+  text-decoration: line-through;
+}
+
+/* Custom Checkbox Toggle */
+.todo .toggle::before {
+  content: "[ ]";
+}
+
+.todo .toggle:hover::before {
+  content: "[X]";
+}
+
+.todo.done .toggle::before {
+  content: "[X]";
+}
+
+/* Todo description: Expandable */
+
+.todo.done .description {
+  color: var(--dim-accent-color);
+}
+
+.todo.expanded {
+  grid-template-rows: auto 1fr;
+}
+
+.todo .description {
+  overflow: hidden;
+  min-height: 0;
+  transition: padding 0.3s ease-out; /* You can keep this for the padding */
+  flex-basis: 100%;
+  padding-left: 32px;
+  color: var(--accent-color);
+  opacity: 0.9;
+  font-size: 0.9em;
+}
+
+.todo .description::before {
+  content: "└> ";
+  opacity: 0.7;
+}
+
+.todo.expanded .description {
+  padding-top: 8px;
+}
+
+/* Expandable Indicator Styling */
+
+.todo .expand-indicator {
+  position: relative;
+  color: var(--accent-color);
+  margin: 0 1ch;
+}
+
+.todo .expand-indicator::before {
+  content: "[+]";
+}
+
+.todo.expanded .expand-indicator::before {
+  content: "[-]";
+}
+
+/* Buttons */
+.new-project,
+.new-todo,
+.deleteProject,
+.deleteTodo,
+.theme {
+  border: 1px solid var(--text-color);
+  padding: 0 8px;
+  transition: all 0.2s;
+}
+
+.new-project:hover,
+.new-todo:hover,
+.deleteProject:hover,
+.deleteTodo:hover,
+.theme:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  text-shadow: none;
+}
+
+.deleteTodo,
+.deleteProject {
+  border-color: var(--error-color);
+  color: var(--error-color);
+}
+
+.deleteTodo::before {
+  content: "RM";
+}
+.deleteProject::before {
+  content: "RMDIR";
+}
+.deleteTodo:hover,
+.deleteProject:hover {
+  background-color: var(--error-color);
+  color: var(--bg-color);
+}
+
+/* Modals / Dialogs */
+dialog {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 24px;
+  width: 90%;
+  max-width: 500px;
+  margin: auto;
+  border: 1px solid var(--border-color);
+  box-shadow: inset 0 0 8px rgba(0, 255, 65, 0.2);
+}
+
+dialog::backdrop {
+  background-color: rgba(13, 13, 13, 0.6);
+  backdrop-filter: blur(2px);
+}
+
+dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+dialog p {
+  font-size: 2rem;
+  font-family: var(--font-heading);
+  color: var(--error-color);
+  text-align: center;
+}
+
+dialog label {
+  font-size: 2rem;
+}
+
+dialog label::before {
+  content: "> ";
+}
+
+dialog label span {
+  color: var(--error-color);
+}
+
+/* Input, Textarea, and Select Styling */
+dialog input,
+dialog textarea,
+dialog select {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--text-color);
+  color: var(--text-color);
+  font-family: var(--font-body);
+  font-size: 2rem;
+  padding: 4px;
+  width: 100%;
+  text-shadow: 0 0 2px var(--shadow-color);
+}
+
+dialog input:focus,
+dialog textarea:focus,
+dialog select:focus {
+  outline: none;
+  background-color: var(--container-bg);
+  border-bottom-color: var(--accent-color);
+}
+
+dialog textarea {
+  resize: vertical;
+}
+
+dialog select option {
+  background: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  font-family: var(--font-body);
+}
+
+/* Checkbox styling */
+dialog form div:has(#isDone) {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+#isDone {
+  appearance: none;
+  visibility: hidden;
+  position: absolute;
+}
+
+#isDone + label::before {
+  content: "[ ]";
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 2rem;
+  color: var(--text-color);
+  cursor: crosshair;
+}
+
+#isDone + label:hover::before {
+  color: var(--accent-color);
+}
+
+#isDone:checked + label::before {
+  content: "[X]";
+  color: var(--accent-color);
+  text-shadow: 0 0 3px var(--accent-color);
+}
+
+/* Date Picker Styling */
+dialog input[type="date"] {
+  color-scheme: dark;
+}
+
+/* This filter re-colors the native calendar icon to match your theme's green */
+dialog input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: crosshair;
+}
+
+dialog form div:has(button[type="submit"]) {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 1rem;
+}
+
+dialog button {
+  border: 1px solid var(--text-color);
+  padding: 8px 16px;
+  text-transform: uppercase;
+}
+
+dialog button[type="submit"] {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  text-shadow: none;
+}
+
+/* Dynamic List Height & Scrollbar Styling (FIXED) */
+
+.projects,
+.todos {
+  display: flex;
+  flex-direction: column;
+  /* Make these sections take up all available vertical space */
+  flex-grow: 1;
+  /* This prevents the lists from overflowing their containers on some browsers */
+  min-height: 0;
+}
+
+/* 3. The lists will now automatically fill their parent containers */
+#project-list,
+#todo-list {
+  overflow-y: auto; /* Show scrollbar only when content overflows */
+  padding-right: 8px; /* Add space for the scrollbar */
+}
+
+/* Themed Scrollbar Styling */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--container-bg);
+  border-left: 1px solid var(--border-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-color);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 0 5px var(--shadow-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+  box-shadow: 0 0 8px var(--accent-color);
 }

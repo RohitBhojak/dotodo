@@ -1,4 +1,4 @@
-import "./css/hacker.css";
+import "./css/styles.css";
 import setupEvents from "./modules/DOM/events";
 
 setupEvents();

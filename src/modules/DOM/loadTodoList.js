@@ -7,29 +7,38 @@ function createTodoNode(todo) {
   node.dataset.id = todo.id;
   node.classList.add("todo");
 
+  const todoMain = document.createElement("div");
+  todoMain.classList.add("todo-main");
+
   // Add toggle button
   const toggle = document.createElement("button");
   toggle.classList.add("toggle");
   if (todo.isDone) node.classList.add("done");
-  node.appendChild(toggle);
+  todoMain.appendChild(toggle);
 
   // Add title
   const title = document.createElement("span");
   title.classList.add("title");
   title.textContent = todo.title;
-  node.appendChild(title);
+  todoMain.appendChild(title);
 
   // Add due date
   const dueDate = document.createElement("span");
   dueDate.classList.add("dueDate");
   dueDate.textContent = format(new Date(todo.dueDate), "dd/MM/yyyy");
-  node.appendChild(dueDate);
+  todoMain.appendChild(dueDate);
 
   // Add delete button
   const deleteTodo = document.createElement("button");
   deleteTodo.classList.add("deleteTodo");
-  node.appendChild(deleteTodo);
+  todoMain.appendChild(deleteTodo);
 
+  // Add expand indicator
+  const expandIndicator = document.createElement("span");
+  expandIndicator.classList.add("expand-indicator");
+  todoMain.appendChild(expandIndicator);
+
+  node.appendChild(todoMain);
   // Add priority
   node.classList.add("priority-" + todo.priority);
 
@@ -37,6 +46,7 @@ function createTodoNode(todo) {
   const description = document.createElement("div");
   description.classList.add("description");
   description.textContent = todo.description;
+  if (todo.description === "") description.textContent = "No description";
   node.appendChild(description);
 
   return node;
