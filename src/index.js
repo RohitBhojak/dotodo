@@ -45,14 +45,12 @@ function populateAppWithTutorial() {
   const today = new Date();
   const tutorial = new Project("Tutorial");
   let id = 0;
-  tutorial.addTodo;
+
   tutorial.addTodo(
     new Todo(
       "Tutorial",
-      "Click the Todo to expand!",
-      "This is a tutorial to get you started.\
-      This is the description and it expands and cotllapses on clicking the todo.\
-      Click the [] toggle it done.",
+      "Click Any To-Do to Expand!",
+      "This is a tutorial to get you started. The description expands and collapses when you click the to-do. Click the [ ] toggle to mark it as done.",
       today,
       "high",
       false,
@@ -62,10 +60,8 @@ function populateAppWithTutorial() {
   tutorial.addTodo(
     new Todo(
       "Tutorial",
-      "Color coded todos, read description",
-      "High Priority tasks are highlighted in red.\
-      Medium priority tasks are highlighted in yellow.\
-      Low priority tasks are highlighted in green.",
+      "Priorities are Color-Coded",
+      "High-priority tasks are highlighted in red, medium-priority tasks are yellow, and low-priority tasks are the default green.",
       today,
       "high",
       false,
@@ -75,9 +71,8 @@ function populateAppWithTutorial() {
   tutorial.addTodo(
     new Todo(
       "Tutorial",
-      "Highlights and project lists",
-      "Highlights curate todos from all projects.\
-      Projects contain todo lists, click the add button to create new projects",
+      "Use Highlights and Projects",
+      "Highlights curate to-dos from all of your projects. Projects contain their own separate to-do lists. Click the '+' button to create new projects.",
       today,
       "medium",
       false,
@@ -87,9 +82,8 @@ function populateAppWithTutorial() {
   tutorial.addTodo(
     new Todo(
       "Tutorial",
-      "Create todos by clicking add todo button",
-      "Todos are created inside the selected project.\
-      If a highlight is active, then project will be created inside default",
+      "Create To-Dos in the Active Project",
+      "New to-dos are created inside the currently selected project. If a Highlight is active, the to-do will be created in the 'Default' project instead.",
       today,
       "medium",
       false,
@@ -99,8 +93,8 @@ function populateAppWithTutorial() {
   tutorial.addTodo(
     new Todo(
       "Tutorial",
-      "RM deletes the todo",
-      "Click the button to delete the todo",
+      "The 'RM' Button Deletes a To-Do",
+      "Click the 'RM' button to permanently delete a single to-do.",
       today,
       "low",
       false,
@@ -110,9 +104,8 @@ function populateAppWithTutorial() {
   tutorial.addTodo(
     new Todo(
       "Tutorial",
-      "RMDIR deletes the whole project and its todos",
-      "Delete the tutorial project after you are done reading the tutorial\
-      Default project cannot be deleted",
+      "The 'RMDIR' Button Deletes a Project",
+      "This will delete the entire project and all of its to-dos. Feel free to delete this 'Tutorial' project when you are finished. The 'Default' project cannot be deleted.",
       today,
       "low",
       false,
