@@ -32,6 +32,24 @@ export default class App {
     return this.projectList;
   }
 
+  // Add todo to project
+  addTodoToProject(title, todo) {
+    this.getProject(title).addTodo(todo);
+    this.updateStorage();
+  }
+
+  // Remove todo from project
+  removeTodoFromProject(title, id) {
+    this.getProject(title).removeTodo(id);
+    this.updateStorage();
+  }
+
+  // Toggle todo from project
+  toggleTodoFromProject(title, id) {
+    this.getProject(title).toggleTodo(id);
+    this.updateStorage();
+  }
+
   updateStorage() {
     storeProjectList(this.projectList);
   }
