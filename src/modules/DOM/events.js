@@ -1,17 +1,9 @@
-import App from "../classes/App";
-import Project from "../classes/Project";
-import { getProjectList } from "../utils/storage";
 import { loadTodoList } from "./loadTodoList";
-import { loadProjectList } from "./loadProjectList";
 import handleProjectModal from "./handleProjectModal";
 import handleTodoModal from "./handleTodoModal";
+import app from "../../index.js";
 
-// Initialize app
-const app = new App();
 export default function setupEvents() {
-  // Load projects from storage on startup
-  document.addEventListener("DOMContentLoaded", handleDOMContentLoaded);
-
   // Event listener for left div
   const left = document.querySelector(".left");
   left.addEventListener("click", (event) => {
@@ -40,33 +32,10 @@ export default function setupEvents() {
   });
 
   // Setup event listener for new project modal
-  handleProjectModal(app);
+  handleProjectModal();
 
   // Setup event listener for new todo modal
-  handleTodoModal(app);
-}
-
-function handleDOMContentLoaded() {
-  // Get project list from storage
-  const projectList = getProjectList();
-  // Alert if storage is unavailable
-  if (projectList === false) {
-    alert("Storage Unavailable, data will not be saved");
-  }
-  // Create default project if storage is unavailable or no projects exist
-  if (!projectList || projectList.length === 0) {
-    app.addProject(new Project("Default"));
-  } else {
-    // Initialize projects from storage
-    projectList.forEach((project) =>
-      app.addProject(new Project(project.title, project.todoList)),
-    );
-  }
-  // Load project list
-  loadProjectList(app);
-  // Load todo list of active project/highlight
-  const active = document.querySelector(".active");
-  loadTodoList(active.textContent, app);
+  handleTodoModal();
 }
 
 function handleDeleteProject(event) {
@@ -94,8 +63,7 @@ function handleDeleteTodo(event) {
   const todo = event.target.closest(".todo");
   const parent = todo.dataset.parent;
   const id = todo.dataset.id;
-  app.getProject(parent).removeTodo(id);
-  app.updateStorage();
+  app.removeTodoFromProject(parent, id);
   todo.remove();
 }
 
@@ -104,9 +72,9 @@ function handleToggleTodo(event) {
   const parent = todo.dataset.parent;
   const id = todo.dataset.id;
 
-  app.getProject(parent).toggleTodo(id);
-  app.updateStorage();
+  app.toggleTodoFromProject(parent, id);
   todo.classList.toggle("done");
+  console.log(app);
 }
 
 function handleExpandTodo(event) {

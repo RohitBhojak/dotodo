@@ -1,7 +1,8 @@
 import Todo from "../classes/Todo";
 import { loadTodo } from "./loadTodoList";
+import app from "../../index.js";
 
-export default function handleTodoModal(app) {
+export default function handleTodoModal() {
   const newTodo = document.querySelector(".new-todo");
   const newTodoModal = document.querySelector("#newTodo");
   const todoForm = document.querySelector("#newTodo form");
@@ -44,8 +45,7 @@ export default function handleTodoModal(app) {
         priority.value,
         isDone.checked,
       );
-      app.getProject(parent).addTodo(todo);
-      app.updateStorage();
+      app.addTodoToProject(parent, todo);
       loadTodo(todo);
     } else {
       title.reportValidity();

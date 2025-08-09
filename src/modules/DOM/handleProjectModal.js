@@ -1,7 +1,8 @@
 import Project from "../classes/Project";
 import { loadProject } from "./loadProjectList";
+import app from "../../index.js";
 
-export default function handleProjectModal(app) {
+export default function handleProjectModal() {
   const newProject = document.querySelector(".new-project");
   const projectModal = document.querySelector("#newProject");
   const projectForm = document.querySelector("#newProject form");
