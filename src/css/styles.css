@@ -259,6 +259,7 @@ header h1 {
 /* Custom Checkbox Toggle */
 .todo .toggle::before {
   content: "[ ]";
+  white-space: nowrap;
 }
 
 .todo .toggle:hover::before {
@@ -286,6 +287,9 @@ header h1 {
   flex-basis: 100%;
   padding-left: 32px;
   color: var(--accent-color);
+  text-shadow:
+    0 0 2px var(--dim-accent-color),
+    0 0 5px var(--dim-accent-color);
   opacity: 0.9;
   font-size: 0.9em;
 }
@@ -324,6 +328,13 @@ header h1 {
   border: 1px solid var(--text-color);
   padding: 0 8px;
   transition: all 0.2s;
+}
+
+.new-todo,
+.new-project {
+  text-shadow:
+    0 0 4px var(--dim-accent-color),
+    0 0 8px var(--dim-accent-color);
 }
 
 .new-project:hover,
@@ -583,13 +594,6 @@ dialog button[type="submit"] {
   #todo-list {
     max-height: 300px;
     flex-grow: 0;
-  }
-
-  .todo .title {
-    max-width: 80px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .todo-main {
