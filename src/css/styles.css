@@ -139,7 +139,7 @@ header h1 {
 
 /* Left Pane: Highlights & Projects */
 
-.left button:hover:not(.new-project) {
+.left button.title:hover:not(.active) {
   color: var(--bg-color);
   background-color: var(--low-priority-color);
   text-shadow: none;
@@ -422,6 +422,7 @@ dialog select:focus {
 
 dialog textarea {
   resize: vertical;
+  height: 100px;
 }
 
 dialog select option {
@@ -531,4 +532,67 @@ dialog button[type="submit"] {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-color);
   box-shadow: 0 0 8px var(--accent-color);
+}
+
+/* --- Responsive Design for Mobile Screens --- */
+
+@media (max-width: 768px) {
+  body {
+    /* Switch to a single-column layout */
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr; /* Header, Left Pane, Right Pane */
+    grid-template-areas:
+      "header"
+      "left"
+      "right";
+
+    /* Reduce padding for smaller screens */
+    padding: 8px;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  header {
+    padding: 8px 16px;
+  }
+
+  header h1 {
+    font-size: 3rem; /* Slightly smaller heading */
+  }
+
+  /* Remove the border between the panes */
+  .left {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color); /* Add a border below */
+  }
+
+  .left,
+  .right {
+    height: auto;
+    overflow: visible;
+    padding: 8px;
+    justify-content: center;
+  }
+
+  .projects,
+  .todos {
+    height: auto;
+  }
+
+  #project-list,
+  #todo-list {
+    max-height: 300px;
+    flex-grow: 0;
+  }
+
+  .todo .title {
+    max-width: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .todo-main {
+    gap: 8px;
+  }
 }
