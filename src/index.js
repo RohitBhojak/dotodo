@@ -20,7 +20,6 @@ export default app;
 function handleDOMContentLoaded() {
   // Get project list from storage
   const projectList = getProjectList();
-  console.log(projectList);
   // Alert if storage is unavailable
   if (projectList === false) {
     alert("Storage Unavailable, data will not be saved");

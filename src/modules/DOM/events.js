@@ -74,7 +74,6 @@ function handleToggleTodo(event) {
 
   app.toggleTodoFromProject(parent, id);
   todo.classList.toggle("done");
-  console.log(app);
 }
 
 function handleExpandTodo(event) {
