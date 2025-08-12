@@ -18,7 +18,7 @@ module.exports = {
 
     new CopyWebpackPlugin({
       patterns: [
-        { from: "src/favicon", to: "" }, // Copies from src/assets/icons to the root of the dist folder
+        { from: "src/favicon", to: "favicon" }, // Copies from src/assets/icons to the root of the dist folder
       ],
     }),
   ],
