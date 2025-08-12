@@ -1,4 +1,5 @@
 const htmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const path = require("path");
 
 module.exports = {
@@ -14,6 +15,12 @@ module.exports = {
     new htmlWebpackPlugin({
       template: "./src/template.html",
       favicon: "./src/favicon.png",
+    }),
+
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: "src/favicon", to: "" }, // Copies from src/assets/icons to the root of the dist folder
+      ],
     }),
   ],
 
